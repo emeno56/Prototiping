@@ -26,6 +26,9 @@ public class RobotContainer {
   String loaderKey = "Loader Speed";
   String hopperKey = "Agitation Speed";
   String intakeKey = "Intake Speed";
+  String p = "p";
+  String i = "i";
+  String d = "d";
 
   Shooter shooter = new Shooter();
   Loader loader = new Loader();
@@ -110,9 +113,9 @@ public class RobotContainer {
   }
 
   private void setUpElastic() {
-    SmartDashboard.setDefaultNumber(shooterKey, 0.4);
-    SmartDashboard.setDefaultNumber(loaderKey, 0.6);
-    SmartDashboard.setDefaultNumber(hopperKey, 0.75);
+    SmartDashboard.setDefaultNumber(shooterKey, 30);
+    SmartDashboard.setDefaultNumber(loaderKey, 30);
+    SmartDashboard.setDefaultNumber(hopperKey, 50);
     SmartDashboard.setDefaultNumber(intakeKey, 0.32);
   }
 

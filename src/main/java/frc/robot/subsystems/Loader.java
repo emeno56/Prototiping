@@ -9,6 +9,7 @@ import static frc.robot.constants.SubsystemConstants.LoaderConstants.*;
 import java.util.function.DoubleSupplier;
 
 import com.ctre.phoenix6.controls.DutyCycleOut;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -20,6 +21,7 @@ public class Loader extends SubsystemBase {
     motor = KrakenBuilder.create(LOADER_MOTOR_ID, CAN_BUS)
       .withCurrentLimit(80)
       .withIdleMode( NeutralModeValue.Brake)
+      .withSlot0PID(0.5, 0, 0.00000001)
       .withInversion(InvertedValue.CounterClockwise_Positive)
       .build();
   }
@@ -29,7 +31,7 @@ public class Loader extends SubsystemBase {
   }
 
   public Runnable load(DoubleSupplier loadSpeed) {
-    return () -> motor.set(loadSpeed.getAsDouble());
+    return () ->  motor.setControl(new VelocityVoltage(loadSpeed.getAsDouble()).withEnableFOC(true));
   }
 
   @Override

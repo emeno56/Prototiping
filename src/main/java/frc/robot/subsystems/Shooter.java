@@ -6,6 +6,7 @@ import static frc.robot.constants.SubsystemConstants.ShooterConstants.SHOOTER_MO
 import java.util.function.DoubleSupplier;
 
 import com.ctre.phoenix6.controls.DutyCycleOut;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -20,6 +21,7 @@ public class Shooter extends SubsystemBase {
     motor = KrakenBuilder.create(SHOOTER_MOTOR_ID, CAN_BUS)
       .withCurrentLimit(80)
       .withIdleMode(NeutralModeValue.Coast)
+      .withSlot0PID(0.6, 0, 0.000000001)
       .withInversion(InvertedValue.CounterClockwise_Positive)
       .build();
   }
@@ -29,7 +31,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public Runnable rev(DoubleSupplier revSpeed) {
-    return () -> motor.set(revSpeed.getAsDouble());
+    return () -> motor.setControl(new VelocityVoltage(revSpeed.getAsDouble()).withEnableFOC(true));
   }
 
   @Override
