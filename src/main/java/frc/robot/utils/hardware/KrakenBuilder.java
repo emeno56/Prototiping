@@ -1,5 +1,6 @@
 package frc.robot.utils.hardware;
 
+import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
@@ -77,7 +78,7 @@ public class KrakenBuilder {
      * @return itself
      */
     public KrakenBuilder asFollower(TalonFX leadMotor, MotorAlignmentValue alignmentValue) {
-        motor.setControl(new Follower(leadMotor.getDeviceID(), MotorAlignmentValue.Aligned));
+        motor.setControl(new Follower(leadMotor.getDeviceID(), alignmentValue));
         return this;
     }
 

@@ -97,9 +97,7 @@ public class RobotContainer {
 
     joystick.leftBumper().whileTrue(
       Commands.run(
-        hopper.agitate(
-          () -> SmartDashboard.getNumber(hopperKey, 0.0)
-        )
+        hopper.agitate()
       ).repeatedly()
     );
 
@@ -115,7 +113,7 @@ public class RobotContainer {
   private void setUpElastic() {
     SmartDashboard.setDefaultNumber(shooterKey, 30);
     SmartDashboard.setDefaultNumber(loaderKey, 30);
-    SmartDashboard.setDefaultNumber(hopperKey, 50);
+    SmartDashboard.setDefaultString(hopperKey, "Already Configured");
     SmartDashboard.setDefaultNumber(intakeKey, 0.32);
   }
 

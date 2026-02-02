@@ -6,6 +6,7 @@ public class SubsystemConstants {
 
     public static class HopperConstants {
         public static final int HOPPER_LOWER_MOTOR_ID = 21;
+        public static final int HOPPER_LOWER_MOTOR_2_ID = 23;
         public static final int HOPPER_UPPER_MOTOR_ID =22;
     }
 

@@ -18,6 +18,7 @@ import frc.robot.utils.hardware.KrakenBuilder;
 
 public class Intake extends SubsystemBase {
   TalonFX motor;
+  
   public Intake() {
     motor = KrakenBuilder.create(INTAKE_MOTOR_ID, CAN_BUS)
       .withCurrentLimit(80)
