@@ -7,16 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.LoadAndShootCommand;
-import frc.robot.subsystems.Hopper;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Loader;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.*;
 
 public class RobotContainer {
 
@@ -24,7 +17,8 @@ public class RobotContainer {
 
   String shooterKey = "Shooter Speed";
   String loaderKey = "Loader Speed";
-  String hopperKey = "Agitation Speed";
+  String upperHopperKey = "Upper Agitation Speed";
+  String lowerHopperKey = "Lower Agitation Speed";
   String intakeKey = "Intake Speed";
   String p = "p";
   String i = "i";
@@ -97,7 +91,10 @@ public class RobotContainer {
 
     joystick.leftBumper().whileTrue(
       Commands.run(
-        hopper.agitate()
+        hopper.agitate(
+          () -> SmartDashboard.getNumber(lowerHopperKey, 0.0),
+          () -> SmartDashboard.getNumber(upperHopperKey, 0.0)
+        )
       ).repeatedly()
     );
 
@@ -111,9 +108,10 @@ public class RobotContainer {
   }
 
   private void setUpElastic() {
-    SmartDashboard.setDefaultNumber(shooterKey, 30);
-    SmartDashboard.setDefaultNumber(loaderKey, 30);
-    SmartDashboard.setDefaultString(hopperKey, "Already Configured");
+    SmartDashboard.setDefaultNumber(shooterKey, 47.5);
+    SmartDashboard.setDefaultNumber(loaderKey, 50);
+    SmartDashboard.setDefaultNumber(upperHopperKey, 84);
+    SmartDashboard.setDefaultNumber(lowerHopperKey, 84);
     SmartDashboard.setDefaultNumber(intakeKey, 0.32);
   }
 
