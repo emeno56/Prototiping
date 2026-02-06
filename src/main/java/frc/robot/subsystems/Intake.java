@@ -1,26 +1,24 @@
 package frc.robot.subsystems;
 
-import static frc.robot.constants.SubsystemConstants.IntakeConstants.INTAKE_MOTOR_ID;
-import static frc.robot.constants.SubsystemConstants.CAN_BUS;
-import static frc.robot.constants.SubsystemConstants.HopperConstants.*;
+import static frc.robot.constants.SubsystemConstants.IntakeConstants.*;
+import static frc.robot.constants.SubsystemConstants.*;
 
 
 import java.util.function.DoubleSupplier;
 
-import com.ctre.phoenix6.controls.DutyCycleOut;
-import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.hardware.Kraken;
 import frc.robot.utils.hardware.KrakenBuilder;
+import frc.robot.utils.hardware.MotorLogger;
 
 public class Intake extends SubsystemBase {
-  TalonFX motor;
+  Kraken motor;
   
   public Intake() {
-    motor = KrakenBuilder.create(INTAKE_MOTOR_ID, CAN_BUS)
+    motor = KrakenBuilder.create(INTAKE_MOTOR_ID, CAN_BUS, "Intake Motor")
       .withCurrentLimit(80)
       .withIdleMode(NeutralModeValue.Coast)
       .withInversion(InvertedValue.CounterClockwise_Positive)
@@ -36,5 +34,7 @@ public Runnable intake(DoubleSupplier speed) {
 } 
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    MotorLogger.log("Intake", motor);
+  }
 }

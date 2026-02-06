@@ -1,24 +1,24 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.hardware.Kraken;
 import frc.robot.utils.hardware.KrakenBuilder;
+import frc.robot.utils.hardware.MotorLogger;
 
 import static frc.robot.constants.SubsystemConstants.CAN_BUS;
 import static frc.robot.constants.SubsystemConstants.LoaderConstants.*;
 
 import java.util.function.DoubleSupplier;
 
-import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
-import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class Loader extends SubsystemBase {
+  Kraken motor;
 
-  TalonFX motor;
   public Loader() {
-    motor = KrakenBuilder.create(LOADER_MOTOR_ID, CAN_BUS)
+    motor = KrakenBuilder.create(LOADER_MOTOR_ID, CAN_BUS, "Loader Motor")
       .withCurrentLimit(80)
       .withIdleMode( NeutralModeValue.Brake)
       .withSlot0PID(0.5, 0, 0.00000001)
@@ -35,5 +35,7 @@ public class Loader extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    MotorLogger.log("Loader", motor);
+  }
 }
