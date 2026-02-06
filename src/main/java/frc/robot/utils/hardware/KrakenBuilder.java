@@ -1,6 +1,5 @@
 package frc.robot.utils.hardware;
 
-import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
@@ -13,11 +12,11 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class KrakenBuilder {
-    private TalonFX motor;
+    private Kraken motor;
     private TalonFXConfiguration config;
 
-    private KrakenBuilder(int id, String canBus) {
-        motor = new TalonFX(id, canBus);
+    private KrakenBuilder(int id, String can, String name) {
+        motor = new Kraken(id, can, name);
         config = new TalonFXConfiguration();
     }
 
@@ -173,8 +172,8 @@ public class KrakenBuilder {
      * @param id is the id of the motor
      * @return a new KrakenBuilder
      */
-    public static KrakenBuilder create(int id, String canBus) {
-        return new KrakenBuilder(id, canBus).optimizeBUSUtilization();
+    public static KrakenBuilder create(int id, String can, String name) {
+        return new KrakenBuilder(id, can, name).optimizeBUSUtilization();
     }
 
     /**
@@ -182,8 +181,8 @@ public class KrakenBuilder {
      * @param id is the id of the motor
      * @return a new KrakenBUilder
      */
-    public static KrakenBuilder createWithDefaults(int id, String canBus) {
-        return new KrakenBuilder(id, canBus)
+    public static KrakenBuilder createWithDefaults(int id, String can, String name) {
+        return new KrakenBuilder(id, can, name)
             .withCurrentLimit(40)
             .withIdleMode(NeutralModeValue.Brake)
             .optimizeBUSUtilization();
@@ -193,7 +192,7 @@ public class KrakenBuilder {
      * Gets configuration and applies it to the motor
      * @return the motor
      */
-    public TalonFX build() {
+    public Kraken build() {
         motor.getConfigurator().apply(config);
         return motor;
     } 
