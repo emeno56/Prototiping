@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import static frc.robot.constants.SubsystemConstants.CAN_BUS;
+import static frc.robot.constants.SubsystemConstants.ShooterConstants.SHOOTER_LOG_KEY;
 import static frc.robot.constants.SubsystemConstants.ShooterConstants.SHOOTER_MOTOR_ID;
 
 import java.util.function.DoubleSupplier;
@@ -32,14 +33,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public Runnable rev(DoubleSupplier revSpeed) {//, double p, double i, double d) {
-    DogLog.log("Subsystems/Shooter/RPS", revSpeed.getAsDouble());
-    // DogLog.log("Shooter P", p);
-    // DogLog.log("Shooter I", i);
-    // DogLog.log("Shooter D", d);
+    DogLog.log(SHOOTER_LOG_KEY + "RPS", revSpeed.getAsDouble());
 
-    
-    // Slot0Configs configs = new Slot0Configs().withKP(p).withKI(i).withKD(d);
-    // motor.getConfigurator().apply(configs);
     return () -> motor.setControl(new VelocityVoltage(revSpeed.getAsDouble()).withEnableFOC(true));
   }
 
