@@ -17,9 +17,14 @@ public class SubsystemConstants {
     public static class ShooterConstants {
         public static final int SHOOTER_MOTOR_ID = 41;
         public static final String SHOOTER_LOG_KEY = "Subsystem/Shooter/"; 
+        public static final double SHOOTER_HEIGHT_M = 0.7; //TODO: this is a placeholder value, get the actual height of the shooter and the angle of the shooter
     }
 
     public static class IntakeConstants {
         public static final int INTAKE_MOTOR_ID = 51;
+    }
+
+    public static class DrivetrainConstants {
+        public static final double DISTANCE_TO_HUB_M = 2.5;//TODO: this is a placeholder value, need to calculate the actual value when we have a drivetrain
     }
 }

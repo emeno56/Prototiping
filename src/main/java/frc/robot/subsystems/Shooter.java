@@ -1,8 +1,9 @@
 package frc.robot.subsystems;
 
 import static frc.robot.constants.SubsystemConstants.CAN_BUS;
-import static frc.robot.constants.SubsystemConstants.ShooterConstants.SHOOTER_LOG_KEY;
-import static frc.robot.constants.SubsystemConstants.ShooterConstants.SHOOTER_MOTOR_ID;
+import static frc.robot.constants.SubsystemConstants.ShooterConstants.*;
+import static frc.robot.constants.SubsystemConstants.DrivetrainConstants.*;
+import static frc.robot.constants.FieldConstants.*;
 
 import java.util.function.DoubleSupplier;
 
@@ -30,6 +31,16 @@ public class Shooter extends SubsystemBase {
 
   public Runnable rev(double revSpeed) {
     return () -> motor.set(revSpeed);//setControl(new DutyCycleOut(revSpeed).withEnableFOC(true));
+  }
+
+  double rotationAngle;
+  public void getRotationAngle() {
+    rotationAngle = Math.atan(((2*FUEL_MAX_HEIGHT_M)/(DISTANCE_TO_HUB_M)) * (1 + Math.sqrt(1 - (HUB_HEIGHT_M - SHOOTER_HEIGHT_M) / FUEL_MAX_HEIGHT_M)));
+  }
+
+  double velocity;
+  public void getVelocity() {
+    velocity = Math.sqrt(2 * 9.81 * FUEL_MAX_HEIGHT_M) / Math.sin(rotationAngle);
   }
 
   public Runnable rev(DoubleSupplier revSpeed) {//, double p, double i, double d) {
